@@ -1,0 +1,43 @@
+<div class="flex flex-col h-screen w-full p-4 bg-gray-100">
+    <div class="text-lg font-semibold text-center py-2">What can I help with?</div>
+
+    <!-- AI Responses -->
+    <div class="flex-grow overflow-auto p-4 bg-white rounded-lg shadow-md">
+        <div *ngFor="let msg of messages" class="flex my-2"
+            [ngClass]="msg.sender === 'user' ? 'justify-end' : 'justify-start'">
+            <div class="p-3 rounded-lg max-w-3xl"
+                [ngClass]="msg.sender === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-black'">
+                {{ msg.text }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Extra Options (Shown Above Input) -->
+    <div class="options-menu" *ngIf="showOptions">
+        <button class="option-item"><mat-icon>cloud_upload</mat-icon> Upload File</button>
+        <button class="option-item"><mat-icon>mic</mat-icon> Record Audio</button>
+        <button class="option-item"><mat-icon>camera_alt</mat-icon> Camera</button>
+        <button class="option-item" (click)="toggleYouTubeInput()">
+            <mat-icon>video_library</mat-icon> YouTube Video
+          </button>
+          
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-container">
+        <button class="icon-button" (click)="toggleOptions()">
+            <mat-icon>add</mat-icon>
+        </button>
+
+        <input type="text" [(ngModel)]="userInput" placeholder="Type something..." class="text-input" />
+
+        <button class="submit-button" (click)="sendMessage()">Submit</button>
+        <button class="clear-button" (click)="clearConversation()">Clear</button>
+    </div>
+</div>
+
+<div *ngIf="showYouTubeInput" class="youtube-input flex items-center space-x-2 mt-2">
+    <input type="text" [(ngModel)]="youtubeUrl" placeholder="Enter YouTube URL" class="text-input border p-2 w-full" />
+    <button class="submit-button bg-blue-500 text-white p-2 rounded" (click)="processYouTubeVideo()">Submit</button>
+  </div>
+  

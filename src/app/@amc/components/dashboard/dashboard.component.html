@@ -1,0 +1,197 @@
+<div class="p-4 rounded-lg mb-0" style="background-color: #e8f2f3">
+  <span class="text-2xl font-extrabold text-gray-700 ml-1 mt-1 block"
+    >Dashboard</span
+  >
+</div>
+
+<div class="p-6 bg-gray-100">
+  <div class="flex justify-center">
+    <div class="grid grid-cols-3 gap-6 mb-6">
+      <div
+        class="bg-white p-8 h-32 w-80 rounded-xl shadow-md flex items-center justify-between"
+      >
+        <div class="space-y-7">
+          <p class="text-sm text-gray-400 font-semibold">Waiting</p>
+          <p class="text-xl font-bold text-black">120</p>
+        </div>
+        <div
+          class="bg-blue-100 rounded-2xl p-2 w-12 h-12 flex items-center justify-center"
+        >
+          <span class="material-icons text-blue-500 text-2xl">access_time</span>
+        </div>
+      </div>
+
+      <div
+        class="bg-white p-8 h-32 w-80 rounded-xl shadow-md flex items-center justify-between"
+      >
+        <div class="space-y-7">
+          <p class="text-sm text-gray-400 font-semibold">Inbound</p>
+          <p class="text-xl font-bold text-black">100</p>
+        </div>
+        <div
+          class="bg-orange-100 rounded-2xl p-2 w-12 h-12 flex items-center justify-center"
+        >
+          <span class="material-icons text-orange-500 text-2xl"
+            >local_shipping</span
+          >
+        </div>
+      </div>
+
+      <div
+        class="bg-white p-8 h-32 w-80 rounded-xl shadow-md flex items-center justify-between"
+      >
+        <div class="space-y-7">
+          <p class="text-sm text-gray-400 font-semibold">Outbound</p>
+          <p class="text-xl font-bold text-black">142</p>
+        </div>
+        <div
+          class="bg-teal-100 rounded-2xl p-2 w-12 h-12 flex items-center justify-center"
+        >
+          <span
+            class="material-icons text-teal-500 text-2xl"
+            style="transform: scaleX(-1)"
+          >
+            local_shipping
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 gap-6">
+    <div class="relative bg-white p-5 rounded-[45px] shadow">
+      <div
+        class="absolute -top-4 left-16 text-white px-2 py-0.5 rounded-full"
+        style="background-color: #3e969f"
+      >
+        <p class="text-xs font-semibold" style="margin-top: 8px">
+          Status Chart
+        </p>
+      </div>
+      <div class="flex items-center justify-center h-full">
+        <p class="text-gray-400">No data found</p>
+      </div>
+    </div>
+
+    <div class="relative bg-white p-5 rounded-[45px] shadow">
+      <div
+        class="absolute -top-4 left-16 text-white px-2 py-0.5 rounded-full"
+        style="background-color: #3e969f"
+      >
+        <p class="text-xs font-semibold" style="margin-top: 8px">
+          Recent Check-In's
+        </p>
+      </div>
+
+      <table
+        mat-table
+        [dataSource]="displayedDataSource"
+        class="w-3/4 h-40 mt-2 rounded-lg"
+      >
+        <ng-container matColumnDef="avatar">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            style="
+              background-color: #f3f3f3;
+              padding: 8px;
+              text-align: left;
+              font-weight: 600;
+            "
+          >
+            Avatar
+          </th>
+          <td mat-cell *matCellDef="let element" class="p-1">
+            <div
+              class="bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold"
+            >
+              {{ element.name.charAt(0) }}
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            style="
+              background-color: #f3f3f3;
+              padding: 8px;
+              text-align: left;
+              font-weight: 600;
+            "
+          >
+            Name
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="p-1 text-gray-700 text-xs"
+          >
+            {{ element.name }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            style="
+              background-color: #f3f3f3;
+              padding: 8px;
+              text-align: left;
+              font-weight: 600;
+            "
+          >
+            Type
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="p-1 text-gray-700 text-xs"
+          >
+            {{ element.type }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="appointmentId">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            style="
+              background-color: #f3f3f3;
+              padding: 8px;
+              text-align: left;
+              font-weight: 600;
+            "
+          >
+            Appointment ID
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            class="p-1 text-gray-700 text-xs"
+          >
+            {{ element.appointmentId }}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <div class="mt-4 text-center">
+        <button
+          (click)="toggleViewAll()"
+          mat-stroked-button
+          class="mt-2 px-3 py-1 border border-teal-500 text-teal-500 rounded-full flex items-center justify-center space-x-1 transition duration-300 hover:bg-teal-500 hover:text-white text-sm ml-8"
+        >
+          <span class="material-icons text-base">groups</span>
+          <span>{{!showAllRows ?  'View All' : 'Collapse'}}</span>
+          <span *ngIf="!showAllRows"
+            class="bg-green-500 text-white text-xs font-semibold ml-1 px-1 py-0.5 rounded-full"
+            >{{ totalRowCount }}</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

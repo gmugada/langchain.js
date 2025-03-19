@@ -1,0 +1,9 @@
+<div class="dialog-container">
+    <h2 class="dialog-title">What do you want to ask?</h2>
+    <input type="text" [(ngModel)]="userInput" class="dialog-input" placeholder="Type here..." />
+    <div class="dialog-actions">
+      <button class="cancel-btn" (click)="closeDialog()">Cancel</button>
+      <button class="submit-btn" [disabled]="!userInput.trim()" (click)="submit()">Submit</button>
+    </div>
+  </div>
+  
